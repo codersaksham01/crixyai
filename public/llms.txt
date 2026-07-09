@@ -1,0 +1,11 @@
+# Crixy AI
+
+> Crixy AI is the all-in-one AI workspace to launch, market and grow your business — websites, chatbots, content, CRM, outreach and analytics from one intelligent dashboard.
+
+## Pages
+
+- [Home](/): Overview of the Crixy AI workspace, product features, how it works, testimonials and FAQ.
+- [Pricing](/pricing): Founder pricing tiers and what's included in each plan.
+- [Customers](/customers): Real workspaces and results from teams using Crixy AI.
+- [Changelog](/changelog): What we've shipped, week by week.
+- [Blog](/blog): Essays and playbooks on AI, small business and building calm software.

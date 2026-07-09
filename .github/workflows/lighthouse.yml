@@ -1,0 +1,73 @@
+name: Lighthouse Performance Budget
+
+# Runs Lighthouse CI against a production build on every PR to catch
+# LCP / CLS / TBT regressions before they ship. Thresholds live in
+# `lighthouserc.json`. Fails the job if the perf budget is exceeded.
+# HTML + JSON reports are uploaded as artifacts and a summary comment
+# with the key LCP/CLS numbers is posted on each PR.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install deps
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Run Lighthouse CI
+        id: lhci
+        # `|| true` so a failing budget still lets us upload the report
+        # and post the PR comment; we re-fail the job afterwards.
+        run: |
+          mkdir -p .lighthouseci
+          bunx --bun @lhci/cli@0.14.x autorun --config=./lighthouserc.json || echo "LHCI_FAILED=1" >> $GITHUB_ENV
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ github.run_id }}
+          path: .lighthouseci/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Summarize LCP / CLS
+        if: always()
+        id: summary
+        run: node .github/workflows/lh-summary.mjs
+
+      - name: Comment on PR
+        if: always() && github.event_name == 'pull_request' && steps.summary.outputs.body != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: lighthouse-perf
+          message: ${{ steps.summary.outputs.body }}
+
+      - name: Fail if budget exceeded
+        if: env.LHCI_FAILED == '1'
+        run: |
+          echo "::error::Lighthouse performance budget exceeded — see the uploaded report."
+          exit 1

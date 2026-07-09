@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://usecrixy.com/sitemap.xml
+Sitemap: https://usecrixy.com/image-sitemap.xml
+

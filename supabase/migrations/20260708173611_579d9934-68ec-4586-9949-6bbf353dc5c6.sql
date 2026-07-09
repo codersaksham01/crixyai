@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.increment_referral_count(text) FROM PUBLIC, anon, authenticated;
