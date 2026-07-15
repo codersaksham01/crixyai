@@ -32,9 +32,9 @@ export function ChangelogFeed() {
         <div className="mb-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-[var(--text-faint)]">
           <span className="h-px w-6 bg-[var(--stroke-2)]" /> Shipped this month
         </div>
-        <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+        <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
           Product changelog — <span className="font-serif-italic text-[rgb(var(--ink)/0.7)]">shipped publicly.</span>
-        </h1>
+        </h2>
         <p className="mt-3 text-[var(--text-muted)]">We ship every week. Here's everything new in Crixy AI.</p>
       </div>
       <ol className="relative border-l border-[var(--stroke-1)] pl-8">

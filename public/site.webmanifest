@@ -1,0 +1,14 @@
+{
+  "name": "Crixy AI — All-in-One AI Business Workspace",
+  "short_name": "Crixy AI",
+  "description": "Launch, market and grow your business with one AI workspace — websites, chatbots, content, CRM, outreach and analytics.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "16x16 32x32 48x48", "type": "image/x-icon" },
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

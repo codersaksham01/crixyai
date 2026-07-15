@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://usecrixy.com/sitemap.xml
 Sitemap: https://usecrixy.com/image-sitemap.xml
+
 

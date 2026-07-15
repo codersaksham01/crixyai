@@ -99,7 +99,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.jpg", type: "image/jpeg" },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
       // Preconnect to the API origin so the first waitlist / stats call
       // skips DNS + TLS handshake time (measurable TTFB win on 4G).
       { rel: "preconnect", href: "https://fmbgxswdkmfdfjilcrol.supabase.co", crossOrigin: "anonymous" },
@@ -120,13 +123,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "Crixy AI",
           url: "https://usecrixy.com",
-          logo: "https://usecrixy.com/favicon.jpg",
+          logo: "https://usecrixy.com/favicon.ico",
           description:
             "The all-in-one AI workspace to launch, market and grow your business.",
           // sameAs helps Google connect the brand across platforms.
           // Update these URLs to the real profiles as they go live.
           sameAs: [
             "https://twitter.com/crixyai",
+            "https://www.instagram.com/crixy.ai",
             "https://www.linkedin.com/company/crixy-ai",
             "https://www.linkedin.com/in/saksham-singh-ba591638a",
             "https://www.producthunt.com/products/crixy-ai",
@@ -148,6 +152,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           },
         }),
       },
+      // Google Analytics 4 (gtag.js) — async loader
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-PV4WWDB3CB",
+        async: true,
+      },
+      {
+        children:
+          "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-PV4WWDB3CB');",
+      },
+      // Meta (Facebook) Pixel
+      {
+        children:
+          "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','2485142598654275');fbq('track','PageView');",
+      },
     ],
 
   }),
@@ -166,6 +184,11 @@ function RootShell({ children }: { children: ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `try{var t=localStorage.getItem('crixy-theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');}}catch(e){}`,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{const remove=()=>document.querySelectorAll('a[href*="lovable.dev"],[id*="lovable" i],[class*="lovable" i],[data-lovable]').forEach((el)=>el.remove());remove();new MutationObserver(remove).observe(document.documentElement,{childList:true,subtree:true});})();`,
           }}
         />
       </head>

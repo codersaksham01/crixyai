@@ -31,6 +31,17 @@ export const Route = createFileRoute("/blog")({
           publisher: { "@type": "Organization", name: "Crixy AI", url: "https://usecrixy.com" },
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://usecrixy.com/" },
+            { "@type": "ListItem", position: 2, name: "Blog", item: BLOG_URL },
+          ],
+        }),
+      },
     ],
   }),
   component: BlogPage,

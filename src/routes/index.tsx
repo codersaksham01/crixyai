@@ -76,9 +76,9 @@ function SectionSkeleton({ minHeight = 320 }: { minHeight?: number }) {
 }
 
 
-const HOME_TITLE = "Crixy AI — The All-in-One AI Business Workspace";
+const HOME_TITLE = "Crixy AI — All-in-One AI Business Workspace & Automation";
 const HOME_DESC =
-  "Launch, market and grow your business with one AI workspace — websites, chatbots, content, CRM, outreach and analytics.";
+  "Crixy AI is the all-in-one AI business workspace to launch, market and grow — AI websites, chatbots, CRM, outreach, content and analytics in one dashboard.";
 const HOME_URL = "https://usecrixy.com/";
 const HOME_OG_IMAGE = "https://usecrixy.com/og-crixy.jpg";
 
@@ -87,6 +87,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: HOME_TITLE },
       { name: "description", content: HOME_DESC },
+      { name: "keywords", content: "Crixy AI, Crixy, usecrixy, AI workspace, AI tools, AI agents, business automation, AI CRM, AI chatbot, AI marketing" },
+      { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" },
       { property: "og:title", content: HOME_TITLE },
       { property: "og:description", content: HOME_DESC },
       { property: "og:url", content: HOME_URL },
@@ -155,6 +157,26 @@ export const Route = createFileRoute("/")({
             url: "https://usecrixy.com/pricing",
           },
           publisher: { "@type": "Organization", name: "Crixy AI", url: "https://usecrixy.com" },
+        }),
+      },
+      // WebPage schema — describes this specific page for search engines.
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${HOME_URL}#webpage`,
+          url: HOME_URL,
+          name: HOME_TITLE,
+          description: HOME_DESC,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "Crixy AI", url: "https://usecrixy.com" },
+          primaryImageOfPage: { "@type": "ImageObject", url: HOME_OG_IMAGE },
+          about: [
+            { "@type": "Thing", name: "AI workspace" },
+            { "@type": "Thing", name: "Business automation" },
+            { "@type": "Thing", name: "AI agents" },
+          ],
         }),
       },
     ],
@@ -226,7 +248,7 @@ const FAQ: FaqItem[] = [
   // Pricing & billing
   { category: "Pricing", q: "What does it cost after the beta?", a: "Founder-pricing beta users lock in a discounted rate for life. Public plans start free with paid tiers scaling by team size and usage — see the pricing page for the full breakdown." },
   { category: "Pricing", q: "Is there a free plan?", a: "Yes. The Starter plan is free forever and includes your website, a basic chatbot, 30 pieces of AI content per month and a lightweight CRM." },
-  { category: "Pricing", q: "Do you offer discounts for non-profits or students?", a: "Yes — verified non-profits, students and early-stage founders get 50% off any paid plan. Email sales@usecrixy.com with proof and we'll set you up." },
+  { category: "Pricing", q: "Do you offer discounts for non-profits or students?", a: "Yes — verified non-profits, students and early-stage founders get 50% off any paid plan. Reach out via our contact links with proof and we'll set you up." },
 
   // Security & data
   { category: "Security", q: "How does Crixy handle my data and privacy?", a: "Your data stays private, encrypted at rest (AES-256) and in transit (TLS 1.3). We never train shared models on your business data, and you can export or delete everything with one click." },
@@ -1055,7 +1077,7 @@ function FaqSection() {
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-sm text-[var(--text-muted)]">
           Everything founders ask before they sign up. Can't find yours?{" "}
-          <a href="mailto:sakshamsingh@usecrixy.com?subject=FAQ%20question" className="underline hover:text-[rgb(var(--ink))]">Email us</a>.
+          <a href="mailto:sakshamsingh@usecrixy.com?subject=FAQ%20question" className="underline hover:text-[rgb(var(--ink))]">Contact us</a>.
         </p>
       </div>
 
@@ -1241,9 +1263,10 @@ function Footer() {
           className="col-span-2 md:col-span-1"
           title="Contact"
           items={[
-            { l: "sakshamsingh@usecrixy.com", href: "mailto:sakshamsingh@usecrixy.com?subject=Hello%20from%20Crixy%20AI" },
-            { l: "sales@usecrixy.com", href: "mailto:sales@usecrixy.com?subject=Sales%20enquiry" },
+            { l: "Contact founder", href: "mailto:sakshamsingh@usecrixy.com?subject=Hello%20from%20Crixy%20AI" },
+            { l: "Contact sales", href: "mailto:sales@usecrixy.com?subject=Sales%20enquiry" },
             { l: "WhatsApp us", href: "https://wa.me/918962890425?text=Hi%20Saksham%2C%20I%27d%20like%20to%20chat%20about%20Crixy%20AI" },
+            { l: "Instagram", href: "https://www.instagram.com/crixy.ai" },
             { l: "LinkedIn", href: "https://www.linkedin.com/in/saksham-singh-ba591638a" },
           ]}
         />
