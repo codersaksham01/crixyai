@@ -76,9 +76,9 @@ function SectionSkeleton({ minHeight = 320 }: { minHeight?: number }) {
 }
 
 
-const HOME_TITLE = "Crixy AI — All-in-One AI Business Workspace & Automation";
+const HOME_TITLE = "Crixy AI - All-in-One AI Business Workspace for Growth";
 const HOME_DESC =
-  "Crixy AI is the all-in-one AI business workspace to launch, market and grow — AI websites, chatbots, CRM, outreach, content and analytics in one dashboard.";
+  "Launch, market and grow with Crixy AI: websites, chatbots, CRM, outreach, content, analytics and automation in one business workspace.";
 const HOME_URL = "https://usecrixy.com/";
 const HOME_OG_IMAGE = "https://usecrixy.com/og-crixy.jpg";
 
@@ -1062,6 +1062,7 @@ function PricingSection() {
 
 /* ------------ FAQ ------------ */
 function FaqSection() {
+  const { open: openWaitlist } = useWaitlist();
   const [open, setOpen] = useState<string | null>(FAQ[0]?.q ?? null);
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
@@ -1077,7 +1078,13 @@ function FaqSection() {
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-sm text-[var(--text-muted)]">
           Everything founders ask before they sign up. Can't find yours?{" "}
-          <a href="mailto:sakshamsingh@usecrixy.com?subject=FAQ%20question" className="underline hover:text-[rgb(var(--ink))]">Contact us</a>.
+          <button
+            type="button"
+            onClick={() => openWaitlist("faq-contact")}
+            className="underline hover:text-[rgb(var(--ink))]"
+          >
+            Contact us
+          </button>.
         </p>
       </div>
 
@@ -1238,6 +1245,15 @@ function Footer() {
           <p className="mt-6 font-serif-italic text-lg text-[var(--text-faint)] sm:text-xl">
             Software that runs a business, so you can build one.
           </p>
+          <div className="mt-5 space-y-1 text-sm text-[var(--text-muted)]">
+            <p>Remote-first from India, serving teams worldwide.</p>
+            <p>
+              Phone{" "}
+              <a href="tel:+918962890425" className="hover:text-[rgb(var(--ink))]">
+                +91 89628 90425
+              </a>
+            </p>
+          </div>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--stroke-1)] bg-[var(--surface-1)] px-3 py-1 text-[11px] text-[var(--text-muted)]">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             All systems operational
@@ -1263,10 +1279,12 @@ function Footer() {
           className="col-span-2 md:col-span-1"
           title="Contact"
           items={[
-            { l: "Contact founder", href: "mailto:sakshamsingh@usecrixy.com?subject=Hello%20from%20Crixy%20AI" },
-            { l: "Contact sales", href: "mailto:sales@usecrixy.com?subject=Sales%20enquiry" },
             { l: "WhatsApp us", href: "https://wa.me/918962890425?text=Hi%20Saksham%2C%20I%27d%20like%20to%20chat%20about%20Crixy%20AI" },
+            { l: "X", href: "https://x.com/crixyai" },
+            { l: "Facebook", href: "https://www.facebook.com/crixyai" },
             { l: "Instagram", href: "https://www.instagram.com/crixy.ai" },
+            { l: "YouTube", href: "https://www.youtube.com/@crixyai" },
+            { l: "LinkedIn page", href: "https://www.linkedin.com/company/crixy-ai" },
             { l: "LinkedIn", href: "https://www.linkedin.com/in/saksham-singh-ba591638a" },
           ]}
         />
@@ -1309,7 +1327,7 @@ function FooterCol({ title, items, className = "" }: { title: string; items: { l
             ) : (
               <a
                 href={i.href}
-                {...(i.href.startsWith("http") || i.href.startsWith("mailto:")
+                {...(i.href.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
                 className="hover:text-[rgb(var(--ink))] break-all"

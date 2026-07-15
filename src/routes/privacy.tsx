@@ -188,12 +188,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function Mailto() {
   return (
-    <a
-      href="mailto:privacy@usecrixy.com"
+    <span
       className="inline-flex items-center gap-1 underline decoration-[rgb(var(--ink)/0.4)] underline-offset-4 hover:text-[rgb(var(--ink))]"
     >
       <Mail className="h-3.5 w-3.5" aria-hidden />
-      privacy@usecrixy.com
-    </a>
+      privacy [at] usecrixy [dot] com
+    </span>
   );
 }

@@ -84,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "Crixy AI" },
+      { name: "theme-color", content: "#000000" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Crixy AI" },
       { property: "og:image", content: "https://usecrixy.com/og-crixy.jpg" },
@@ -103,6 +104,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "manifest", href: "/site.webmanifest" },
+      { rel: "alternate", href: "https://usecrixy.com/", hrefLang: "en" },
+      { rel: "alternate", href: "https://usecrixy.com/", hrefLang: "x-default" },
       // Preconnect to the API origin so the first waitlist / stats call
       // skips DNS + TLS handshake time (measurable TTFB win on 4G).
       { rel: "preconnect", href: "https://fmbgxswdkmfdfjilcrol.supabase.co", crossOrigin: "anonymous" },
@@ -121,16 +124,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": "https://usecrixy.com/#organization",
           name: "Crixy AI",
           url: "https://usecrixy.com",
           logo: "https://usecrixy.com/favicon.ico",
+          image: "https://usecrixy.com/og-crixy.jpg",
           description:
             "The all-in-one AI workspace to launch, market and grow your business.",
+          telephone: "+91-89628-90425",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "IN",
+          },
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              contactType: "sales",
+              telephone: "+91-89628-90425",
+              areaServed: "Worldwide",
+              availableLanguage: ["en"],
+            },
+          ],
           // sameAs helps Google connect the brand across platforms.
           // Update these URLs to the real profiles as they go live.
           sameAs: [
-            "https://twitter.com/crixyai",
+            "https://x.com/crixyai",
+            "https://www.facebook.com/crixyai",
             "https://www.instagram.com/crixy.ai",
+            "https://www.youtube.com/@crixyai",
             "https://www.linkedin.com/company/crixy-ai",
             "https://www.linkedin.com/in/saksham-singh-ba591638a",
             "https://www.producthunt.com/products/crixy-ai",
@@ -143,13 +164,40 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
+          "@id": "https://usecrixy.com/#website",
           name: "Crixy AI",
           url: "https://usecrixy.com",
+          publisher: { "@id": "https://usecrixy.com/#organization" },
           potentialAction: {
             "@type": "SearchAction",
             target: "https://usecrixy.com/blog?q={search_term_string}",
             "query-input": "required name=search_term_string",
           },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://usecrixy.com/#localbusiness",
+          name: "Crixy AI",
+          url: "https://usecrixy.com",
+          image: "https://usecrixy.com/og-crixy.jpg",
+          telephone: "+91-89628-90425",
+          priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "IN",
+          },
+          areaServed: ["India", "United States", "United Kingdom", "Worldwide"],
+          sameAs: [
+            "https://x.com/crixyai",
+            "https://www.facebook.com/crixyai",
+            "https://www.instagram.com/crixy.ai",
+            "https://www.youtube.com/@crixyai",
+            "https://www.linkedin.com/company/crixy-ai",
+          ],
         }),
       },
       // Google Analytics 4 (gtag.js) — async loader
@@ -193,6 +241,14 @@ function RootShell({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            alt=""
+            src="https://www.facebook.com/tr?id=2485142598654275&ev=PageView&noscript=1"
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>

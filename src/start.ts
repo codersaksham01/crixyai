@@ -5,16 +5,21 @@ import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
 const CANONICAL_HOST = "usecrixy.com";
 
-// 301-redirect the published .lovable.app host to the canonical domain.
-// Preview subdomains (id-preview--*, project--*-dev) are intentionally
-// excluded so in-editor previews and dev URLs keep working.
+// Keep every public URL on the HTTPS canonical host. Preview subdomains
+// (id-preview--*, project--*-dev) are intentionally excluded so in-editor
+// previews and dev URLs keep working.
 const canonicalHostMiddleware = createMiddleware().server(async ({ request, next }) => {
   try {
     const url = new URL(request.url);
     const host = url.hostname.toLowerCase();
     const isLovableApp = host.endsWith(".lovable.app");
     const isPreview = host.startsWith("id-preview--") || host.includes("-dev.lovable.app");
-    if (isLovableApp && !isPreview && host !== CANONICAL_HOST) {
+    const isPublicHost = host === CANONICAL_HOST || host === `www.${CANONICAL_HOST}`;
+    const shouldRedirect =
+      (isPublicHost && (url.protocol !== "https:" || host !== CANONICAL_HOST)) ||
+      (isLovableApp && !isPreview && host !== CANONICAL_HOST);
+
+    if (shouldRedirect) {
       const target = `https://${CANONICAL_HOST}${url.pathname}${url.search}`;
       return new Response(null, {
         status: 301,

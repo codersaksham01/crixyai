@@ -80,7 +80,7 @@ function validateField(name: FieldName, value: string): string | undefined {
       return;
     case "email":
       if (!v) return "Email is required.";
-      if (!EMAIL_RE.test(v)) return "Enter a valid email like you@company.com.";
+      if (!EMAIL_RE.test(v)) return "Enter a valid work email.";
       return;
     case "mobile":
       if (!v) return "Mobile number is required.";
@@ -765,7 +765,7 @@ function WaitlistDialog({
                           value={form.email}
                           onChange={(v) => setField("email", v)}
                           onBlur={() => blurField("email")}
-                          placeholder="you@company.com"
+                          placeholder="Work email"
                           autoComplete="email"
                           inputMode="email"
                           required
